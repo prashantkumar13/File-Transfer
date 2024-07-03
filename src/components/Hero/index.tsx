@@ -15,7 +15,7 @@ const Hero = () => {
                   Free File Sharing Web App
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                  A file transfer web application is a platform that enables users to upload, store, and share files securely. It offers features like file upload, storage, access control, file management, security, and collaboration. Users can upload files, generate shareable links, and control access permissions. The platform employs robust security measures and offers integrations with other tools. It's useful for sharing files, collaborating on projects, and storing files accessibly. This platform streamlines file sharing and collaboration, making it an essential tool for personal and professional use.
+                  A file transfer web application is a platform that enables users to upload, store, and share files securely. It offers features like file upload, storage, access control, file management, security, and collaboration. Users can upload files, generate shareable links, and control access permissions. The platform employs robust security measures and offers integrations with other tools. It&apos;s useful for sharing files, collaborating on projects, and storing files accessibly. This platform streamlines file sharing and collaboration, making it an essential tool for personal and professional use.
                 </p>
                 {/* <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
