@@ -1,11 +1,11 @@
-import express from "express";
+// import express from "express";
 import userModel from "../model/userModel.js";
 import { comparePassword, hashPassword } from "../helper/authHelper.js";
 import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
     try {
-      const { name, email, password, phone, answer } = req.body;
+      const { name, email, password, phone} = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -37,9 +37,7 @@ export const registerController = async (req, res) => {
       const user = await new userModel({
         name,
         email,
-        phone,
         password: hashedPassword,
-        answer,
       }).save();
   
       res.status(201).send({
@@ -139,7 +137,6 @@ export const loginController = async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone,
-        adddress: user.address,
       },
       token,
     });
