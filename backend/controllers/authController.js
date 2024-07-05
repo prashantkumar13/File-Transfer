@@ -161,7 +161,7 @@ export const forgotPasswordController = async (req, res) => {
       res.status(400).send({ message: "New Password is required" });
     }
     //check
-    const user = await userModel.findOne({ email, answer });
+    const user = await userModel.findOne({ email});
     //validation
     if (!user) {
       return res.status(404).send({
