@@ -55,49 +55,6 @@ export const registerController = async (req, res) => {
     }
   };
   
-  // export const loginController =  async ()=>{
-  //   try{
-  //     const {email,password}=req.body;
-  //     if(!email || !password){
-  //       return res.send("Something is Incorrect");
-  //     }
-  //     const  user = await userModel.findOne({email});
-  //     if(!user){
-  //       return res.send("User does not exist");
-  //     }
-  //     const match= await comparePassword(password,user.password);
-  //     if(!match){
-  //       res.status(200).send({
-  //         success:"flase",
-  //         message:"Wrong Password"
-  //       })
-  //     }
-  //     const token= await JWT.sign({_id:user._id},process.env.SECRET,{
-  //       expiresIn:"7d"
-  //     });
-  //     res.status(200).send({
-  //       success:true,
-  //       message:"Login Succesfully",
-  //       user:{
-  //         _id:user._id,
-  //         name:user.name,
-  //         email:user.email,
-  //         phone:user.phone,
-  //       },
-  //       token,
-  //     })
-      
-  //   }catch(error){
-  //     console.log(error);
-  //     res.status(500).send({
-  //       success: false,
-  //       message: "Error in login",
-  //       error,
-  //     });
-  //   }
-
-  // }
-
 
   //POST LOGIN
 export const loginController = async (req, res) => {
@@ -129,6 +86,7 @@ export const loginController = async (req, res) => {
     const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+    res.cookie("auth-token",token)
     res.status(200).send({
       success: true,
       message: "login successfully",
@@ -138,7 +96,6 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
       },
-      token,
     });
   } catch (error) {
     console.log(error);

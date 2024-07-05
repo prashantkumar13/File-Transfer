@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import morgan from 'morgan';
 import connectDB from './config/db.js';
 import authRoute from "./route/authRoute.js"
+import cookieParser from 'cookie-parser';
 
 
 //configure env
@@ -18,6 +19,7 @@ const app=express()
 //middlewares
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 
 //routes
