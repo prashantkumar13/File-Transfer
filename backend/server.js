@@ -25,7 +25,7 @@ app.use("/api/v1/auth", authRoute);
 
 //rest api
 app.get('/',(req,res)=>{
-    res.send('<h1>Welcome to ecom App</h1>')
+    res.send('<h1 style="color:red">Server is running...</h1>')
 })
 
 //PORT
