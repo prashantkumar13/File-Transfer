@@ -13,18 +13,23 @@ const fileSchema = new mongoose.Schema({
         type : Number,
         require : true,
     },
-    uuid : {
-        type : String,
-        require : true,
-    },
-    sender : {
-        type : String,
-        require : false,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : 'User',
     },
     receiver : {
         type : String,
         require : false,
-    }  
+    },
+    link : {
+        type : String,
+        require : true,
+    },
+    mimetype: {
+        type : String,
+        require : true,
+    },
+
 },{timestamps : true});
 
 const fileModel = new mongoose.model("File",fileSchema);

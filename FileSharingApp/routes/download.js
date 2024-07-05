@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express();
-const File = require('../models/fileSchema');
+const fileModel = require('../models/fileSchema');
 
-router.get('/:uuid',async(req,res)=>{
+router.get('/:id',async(req,res)=>{
     try{
-        const file = await File.findOne({uuid : req.params.uuid});
+        const file = await fileModel.findOne({_id : req.params.id});
         if(!file){
             return res.status(404).json({error : err.message});
         }
