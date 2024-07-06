@@ -6,8 +6,8 @@ const fileModel = require('../models/fileSchema');
 const userModel = require('../models/userSchema');
 
 const passport = require('passport');
-const localStrategy = require('passport-local');
-passport.use(new localStrategy(userModel.authenticate()));
+const LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy({ usernameField: 'email' }, userModel.authenticate()));
 
 const upload = require('./multer');
 
@@ -34,7 +34,7 @@ router.post('/upload',isLoggedIn, async (req, res) => {
 
         try {
             // Find the user based on the session (assuming user is logged in)
-            const user = await userModel.findOne({ username: req.session.passport.user });
+            const user = await userModel.findOne({ email : req.session.passport.user });
 
             // Create a new file document
             const fileData = new fileModel({
@@ -72,14 +72,14 @@ router.get('/profile', isLoggedIn,async function(req, res) {
 });
 
 router.post('/register', (req, res) => {
-    const { username,fullname, email, password} = req.body;
+    const {fullname, email, password} = req.body;
 
     // Check if all required fields are provided
-    if (!username || !fullname || !email || !password) {
+    if ( !fullname || !email || !password) {
         return res.status(400).json({ message: 'All fields are required' });
     }
     // Create a new user instance
-    const newUser = new userModel({ username, fullname, email });
+    const newUser = new userModel({ fullname, email });
 
     // Register the user using passport-local-mongoose
     userModel.register(newUser, password, (err, user) => {
