@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUser } from '@/context/UserContext';
+import { baseUrl } from "@/context/baseUrl";
 
 const SigninPage = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const SigninPage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+      const response = await fetch(`${baseUrl}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

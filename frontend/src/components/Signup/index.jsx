@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {baseUrl} from "@/context/baseUrl"
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const SignupPage = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/auth/register', {
+      const response = await fetch(`${baseUrl}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

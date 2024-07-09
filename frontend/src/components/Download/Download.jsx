@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import FileIcon from "./FileIcon";
 import { useUser } from '@/context/UserContext';
+import { baseUrl } from "@/context/baseUrl";
 
 
 const MyFiles = () => {
@@ -29,7 +30,7 @@ const MyFiles = () => {
   useEffect(() => {
     const fetchMyFiles = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/file/files/668c5f66ab07ac94de3e22d3`);
+        const response = await fetch(`${baseUrl}/api/v1/file/files/668c5f66ab07ac94de3e22d3`);
         if (!response.ok) {
           throw new Error(`Sorry ${user.username} Failed to fetch files or You don't have files`);
         }
