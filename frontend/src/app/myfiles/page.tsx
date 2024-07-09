@@ -1,12 +1,11 @@
-// import Link from "next/link";wsx9
-
+import React from 'react'
 import { Metadata } from "next";
 // import Upload from "@/components/Upload";
-import FilePicker from "@/components/FilePicker/FilePicker";
+import FileManager from "@/components/FileManager/FileManager";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Upload Your File | MegaShare",
+  title: "File Manager | MegaShare",
   description: "A file sharing web app",
   // other metadata
 };
@@ -14,9 +13,9 @@ export const metadata: Metadata = {
 const UploadPage = () => {
   return (
     <>
-    <Breadcrumb pageName="Upload" description="Upload Your Files Here" key={"yoyo"}/>
-    {/* <Upload/> */}
-    <FilePicker/>
+      <Breadcrumb pageName="My Files" description="All Your Files Are Here" key={"yoyo"} />
+      {/* <Upload/> */}
+      <FileManager />
 
     </>
   );

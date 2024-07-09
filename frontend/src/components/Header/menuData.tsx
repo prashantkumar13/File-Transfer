@@ -20,11 +20,17 @@ const menuData: Menu[] = [
   //   newTab: false,
   // },
   {
-    id: 3,
+    id: 2,
     title: "Upload",
     path: "/upload",
     newTab: false,
   },
+  // {
+  //   id: 3,
+  //   title: "My Files",
+  //   path: "/myfiles",
+  //   newTab: false,
+  // },
   // {
   //   id: 4,
   //   title: "Pages",
