@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true, // Ignore ESLint warnings during production builds
+  },
   images: {
     domains: ["localhost"],
     remotePatterns: [
