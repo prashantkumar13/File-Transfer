@@ -16,7 +16,7 @@ const UploadPage = () => {
     <>
     <Breadcrumb pageName="Upload" description="Upload Your Files Here" key={"yoyo"}/>
     {/* <Upload/> */}
-    <FilePicker/>
+    <FilePicker className=""/>
 
     </>
   );
