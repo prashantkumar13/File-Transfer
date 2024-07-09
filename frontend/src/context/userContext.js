@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-
-// Create the context
+ 
+// Create the contexta
 const UserContext = createContext();
 
 // Create a custom hook to use the UserContext
