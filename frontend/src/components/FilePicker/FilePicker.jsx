@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FilesPicked, UploadPercentages } from "@/recoil/atoms";
 import { useUser } from '@/context/UserContext';
 import { useRouter } from "next/navigation";
+import {baseUrl} from "@/context/baseUrl.js";
 
 const FilePicker = ({
   className,
@@ -67,7 +68,7 @@ const FilePicker = ({
       }else{
         setMessage("")
         setButtonStatus(1)
-        const response = await fetch('http://localhost:8080/api/v1/file/upload', {
+        const response = await fetch(`${baseUrl}/api/v1/file/upload`, {
           method: 'POST',
           body: formData,
         });
