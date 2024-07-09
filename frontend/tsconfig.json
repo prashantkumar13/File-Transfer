@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["src/*"]
 		},
     "allowJs": true,
     "skipLibCheck": true,
@@ -26,3 +26,5 @@
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/myfiles/page.jsx", "src/components/Signup/index.jsx", "src/components/Signin/index.jsx"],
   "exclude": ["node_modules"]
 }
+
+
