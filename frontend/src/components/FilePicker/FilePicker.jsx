@@ -8,7 +8,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FilesPicked, UploadPercentages } from "@/recoil/atoms";
 import { useUser } from '@/context/UserContext';
 import { useRouter } from "next/navigation";
+// <<<<<<< HEAD
 import {baseUrl} from "@/context/baseUrl"
+// =======
+// import {baseUrl} from "@/context/baseUrl.js";
+// >>>>>>> ab40cc7d35fa29d41c54e5f272b6441ca49a013f
 
 const FilePicker = ({
   className,
