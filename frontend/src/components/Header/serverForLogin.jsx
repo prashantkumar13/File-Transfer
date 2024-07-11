@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser} from '@/context/UserContext';
+import {baseUrl} from "@/context/baseUrl"
 
 const ServerForLogin = () => {
     const router = useRouter();
@@ -10,7 +11,7 @@ const ServerForLogin = () => {
 
     const useLogout = async () => {
         try {
-          const response = await fetch('http://localhost:8080/api/v1/auth/logout', {
+          const response = await fetch(`${baseUrl}/api/v1/auth/logout`, {
             method: 'POST',
             credentials: 'include', // This ensures cookies are sent with the request
           });
