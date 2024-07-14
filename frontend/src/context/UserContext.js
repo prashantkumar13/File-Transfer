@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react';
- 
-// Create the contexta
+import { createContext, useContext, useState, useEffect } from 'react';
+
+// Create the context
 const UserContext = createContext();
 
 // Create a custom hook to use the UserContext
@@ -14,12 +14,22 @@ export const UserProvider = ({ children }) => {
     email: null,
   });
 
+  // Load user data from localStorage on initial render
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const login = (userData) => {
-    setUser({
+    const user = {
       username: userData.name,
       id: userData._id,
       email: userData.email,
-    });
+    };
+    setUser(user);
+    localStorage.setItem('user', JSON.stringify(user)); // Save user data to localStorage
   };
 
   const logout = () => {
@@ -28,6 +38,7 @@ export const UserProvider = ({ children }) => {
       id: null,
       email: null,
     });
+    localStorage.removeItem('user'); // Remove user data from localStorage
   };
 
   return (
