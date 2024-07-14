@@ -1,12 +1,26 @@
+import { baseUrl } from '@/context/baseUrl';
 import React from 'react'
 
-const FileIcon = ({ name, icon, size, createdAt }) => {
+const FileIcon = ({ name, icon, size, createdAt,id }) => {
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`https://mega-share.vercel.app/download/${id}`).then(() => {
+      alert('Link copied to clipboard');
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
+
+  const handleClick =()=>{
+    copyToClipboard()
+
+  }
 
   return (
     <div
       className="bg-gray-100 p-4 rounded-lg relative group"
     >
-      <button className="absolute top-2 right-2 text-gray-500 hover:text-red-600">
+      <button className="absolute top-2 right-2 text-gray-500 hover:text-red-600" onClick={handleClick}>
         <img className='h-5 w-5' src={"https://img.icons8.com/?size=50&id=7867&format=png"} />
 
       </button>

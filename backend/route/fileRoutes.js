@@ -6,7 +6,6 @@ import upload from '../config/multer-config.js';
 
 const router = express.Router();
 
-
 function formatFileSize(bytes) {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -143,6 +142,35 @@ router.get('/files/:userId', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error retrieving files' });
+    }
+});
+
+// Route to get file by its ObjectId
+router.get('/file/:fileId', async (req, res) => {
+    try {
+        const fileId = req.params.fileId;
+        const file = await File.findById(fileId);
+
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+
+        const totalBytes = file.files.reduce((acc, f) => acc + sizeStringToBytes(f.size), 0);
+        const formattedTotalSize = formatBytes(totalBytes);
+
+        const fileWithSize = {
+            ...file.toObject(),
+            quantity: file.files.length,
+            totalSize: formattedTotalSize,
+            createdAt: new Date(file.createdAt).toLocaleString() // Format the createdAt date
+        };
+
+        res.json({
+            file: fileWithSize
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error retrieving file' });
     }
 });
 

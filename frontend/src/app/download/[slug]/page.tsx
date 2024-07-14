@@ -2,6 +2,7 @@
 import React from 'react'
 
 import { Metadata } from "next";
+
 // import Upload from "@/components/Upload";
 import Download from "@/components/Download/Download";
 import Breadcrumb from "@/components/Common/Breadcrumb";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 const DownloadPage = () => {
+
   return (
     <>
       <Breadcrumb pageName="Download" description="All Your Files Are Here" key={"yoyo"} />

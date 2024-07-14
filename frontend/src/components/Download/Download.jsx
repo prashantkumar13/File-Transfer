@@ -1,19 +1,22 @@
 "use client"
 import React, { useEffect, useState } from "react";
+import { useParams } from 'next/navigation'
 import FileIcon from "./FileIcon";
 import { useUser } from '@/context/UserContext';
-import { baseUrl } from "@/context/baseUrl";
-
+import { baseUrl } from '@/context/baseUrl';
 
 const MyFiles = () => {
-  const { user } = useUser()
+  const { user } = useUser();
   const [myFiles, setMyFiles] = useState([]);
   const [error, setError] = useState(null);
+  const {slug} =useParams()
+  console.log("paran",slug)
 
   const getFileExtension = (filename) => {
     const parts = filename.split('.');
     return parts.length > 1 ? parts.pop() : '';
   };
+
   const formatDateTime = (isoString) => {
     const date = new Date(isoString);
     const options = {
@@ -27,24 +30,37 @@ const MyFiles = () => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  const handleDownload = (url, filename) => {
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch(error => console.error('Error downloading the file', error));
+  };
+
   useEffect(() => {
     const fetchMyFiles = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/v1/file/files/668c5f66ab07ac94de3e22d3`);
+        const response = await fetch(`${baseUrl}/api/v1/file/file/${slug}`);
         if (!response.ok) {
-          throw new Error(`Sorry ${user.username} Failed to fetch files or You don't have files`);
+          throw new Error(`Sorry ${user.username}, failed to fetch files or you don't have files.`);
         }
         const data = await response.json();
-        setMyFiles(data.files); // Assuming the API returns an object with a 'files' array
+        console.log("inside my download", data);
+        setMyFiles(data.file); // Assuming the API returns an object with a 'files' array
       } catch (error) {
         setError(error.message);
       }
     };
 
     fetchMyFiles();
-
-  }, []);
-  console.log(myFiles)
+  }, [user.username]);
 
   return (
     <div className="container mx-auto py-8">
@@ -52,39 +68,26 @@ const MyFiles = () => {
         <div className="col-12">
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex justify-between items-center mb-6">
-              <h4 className="text-lg font-semibold">My Files</h4>
+              <h4 className="text-lg font-semibold">{ `${myFiles.title? myFiles.title: "untitled" }(${myFiles.quantity})`}</h4>
             </div>
             {error && <p className="text-red-500">{error}</p>}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-              {/* {files.map((file, index) => (
-                <FileIcon key={index} name={file.name} size={file.size} icon={file.icon} />
-              ))} */}
-              {myFiles.map((fileGroup, index) => {
-                if (fileGroup.quantity > 1) {
-                  return (
-
-
-                    <FileIcon
-                      key={Math.random()}
-                      name={fileGroup.title}
-                      size={fileGroup.totalSize}
-                      createdAt={formatDateTime(fileGroup.createdAt)}
-                      icon={"file"}
-                    />
-
-                  );
-                } else {
-                  return (
-                    <FileIcon
-                      key={Math.random()}
-                      name={fileGroup.files[0].filename}
-                      size={fileGroup.files[0].size}
-                      createdAt={formatDateTime(fileGroup.createdAt)}
-                      icon={getFileExtension(fileGroup.files[0].filename)}
-                    />
-                  );
-                }
-              })}
+              {myFiles?.files?.map((fileData) => (
+                <div key={fileData._id} className="file-icon">
+                  <FileIcon
+                    name={fileData.filename}
+                    size={fileData.size}
+                    createdAt={""}
+                    icon={getFileExtension(fileData.filename)}
+                  />
+                  <button
+                    onClick={() => handleDownload(fileData.fileUrl, fileData.filename)}
+                    className="mt-2 text-blue-500 hover:underline"
+                  >
+                    Download
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -92,22 +95,5 @@ const MyFiles = () => {
     </div>
   );
 };
-
-
-
-const files = [
-  { name: "invoice_project.pdf", size: "568.8 kb", icon: "pdf" },
-  { name: "Bmpfile.bmp", size: "845.8 mb", icon: "bmp" },
-  { name: "Photoshop_file.ps", size: "684.8 kb", icon: "psd" },
-  { name: "Avifile.avi", size: "5.9 mb", icon: "avi" },
-  { name: "Cadfile.cad", size: "95.8 mb", icon: "cad" },
-  { name: "Mytextfile.txt", size: "568.8 kb", icon: "txt" },
-  { name: "Epsfile.eps", size: "568.8 kb", icon: "eps" },
-  { name: "Project_file.dll", size: "684.3 kb", icon: "dll" },
-  { name: "Website_file.sql", size: "457.8 kb", icon: "sql" },
-  { name: "invoice_project.pdf", size: "568.8 kb", icon: "zip" },
-  { name: "invoice_project.pdf", size: "568.8 kb", icon: "ps" },
-  { name: "invoice_project.pdf", size: "568.8 kb", icon: "png" },
-];
 
 export default MyFiles;

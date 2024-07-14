@@ -68,6 +68,7 @@ const MyFiles = () => {
                       size={fileGroup.totalSize}
                       createdAt={formatDateTime(fileGroup.createdAt)}
                       icon={"file"}
+                      id={fileGroup._id}
                     />
                   );
                 } else {
@@ -78,6 +79,7 @@ const MyFiles = () => {
                       size={fileGroup.files[0].size}
                       createdAt={formatDateTime(fileGroup.createdAt)}
                       icon={getFileExtension(fileGroup.files[0].filename)}
+                      id={fileGroup._id}
                     />
                   );
                 }
